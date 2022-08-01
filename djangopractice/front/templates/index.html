@@ -178,27 +178,30 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js"></script>
 
+
+    <!-- <script src="{% static 'js/dropdown.js' %}"></script> -->
+    
     <script>
         $("#county").change(function(){
             var getvalue = $(this).val();
-
+            var insertHtml="";
+    
+            if (getvalue == ""){
+                $("#town").html(insertHtml);
+            }
+                    
             $.ajax({
                 type: 'post',
-                url: "{{'town_ajax'}}",
+                url: "{{ 'town_ajax' }}",
                 data: {'get_county_id':getvalue},
                 success: function (result){
                     var result = JSON.parse(result);
-                    var insertHtml="";
-            
-                    if (getvalue != ""){
-                        insertHtml="<option>請選擇</option>"
-                    }
                     // console.log(result);
                     // console.log(typeof(result));
                     // console.log(result[0].pk)
                     // console.log(result[0].fields['town'])
                     // console.log(result.length)
-                    $("#town").append('<option>請選擇</option>')
+                    insertHtml = ('<option value="">請選擇</option>')
                     for(var i=0; i<result.length; i++){
                         insertHtml += ('<option value='+ result[i].pk + '>'+ result[i].fields['town']+'</option>');
                     }
@@ -206,20 +209,23 @@
                 }
             })
         });
-    </script>
-    <!-- <script src="{% static 'js/dropdown.js' %}"></script> -->
     
-    <script>
+    
         $("#search").click(function(){
             var get_id = $("#town").val();
             var insertHtml = "";
+            
+            if ($("#county").val() == "" || $("#town").val() == ""){
+                alert("請同時選擇縣市與鄉鎮市區，以便查詢")
+                $("#insertList").html(insertHtml);
+            }
+    
             $.ajax({
                 type: 'post',
                 url: "{{'search_ajax'}}",
                 data: {'get_id':get_id},
                 success: function (result){
                     var result = JSON.parse(result);
-                    console.log(result);
                     for(var i=0; i<result.length; i++){
                         insertHtml += ("<tr><td>" 
                             + result[i].fields['name'] + "</td><td>"
