@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>index</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.slim.js"
+    integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY="
+    crossorigin="anonymous"></script> -->
+    <script
+    src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+    crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+    
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+</head>
+<body onload="init()">
+    <header>
+        <nav class="navbar bgcolor-green">     
+            <div class="container justify-content-center">
+                <a class="navbar-brand" href="#">皮膚病灶網站</a>
+            </div>
+        </nav>
+    </header>
+    
+    <main>
+        <div class="container">
+            <section id="section_1">
+                <div class="d-flex justify-content-center">
+                    <span class="title">
+                        皮膚病灶相關介紹
+                    </span>
+                </div>
+                <div class="row content_margin_top">
+                    <div class="col-md-6 col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">NV(黑色素細胞痣)</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">BKL(良性角化病變)</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">DF(皮膚纖維瘤)</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">VACE(血管病變)</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row content_margin_top">
+                    <div class="col-md-6 col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">MEL(黑色素瘤)</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">BCC(基底細胞癌)</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">AK(日光性角化症)</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">SCC(鱗狀細胞癌)</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="section_2">
+                <div class="d-flex justify-content-center">
+                    <span class="title">
+                        皮膚病灶檢測
+                    </span>
+                </div>
+                <div id="section_2_content" class="d-flex justify-content-center">
+                    <div>
+                        <input type="file" id="input"><br>
+                        <input type="submit" onclick="submit()">
+                        <br><br>
+                        <p>預覽:</p>
+                        <div id="showImage" style="width: 144px; height: 144px; background-color: black;"></div>
+                        <p>預測結果: <span id="resultValue"></span></p>
+                    </div>                 
+                    
+                    <canvas id="Chart" style="margin:0px 60px; width:100%;max-width:700px; display:inline" class="d-flex justify-content-center"></canvas>
+                </div>
+            </section>
+
+            <section id="section_3">
+                <div class="d-flex justify-content-center">
+                    <span class="title">
+                        搜尋皮膚科醫療診所
+                    </span>
+                </div>
+                <form action="" method="" id="section_3_content" class="content_margin_top d-flex justify-content-center">
+                    <!-- {% csrf_token %} -->
+                    <select id="county" required>
+                        <option value="" selected="selected">請選擇縣市</option>
+                        {% for county in county_list %}
+                        <option value="{{county.id}}">{{county.county}}</option>
+                        {% endfor %}
+                    </select>
+                    <select id="town" required></select>
+
+                    <input id="search" type="button" value="查詢">
+                </form>
+                <table id="result" class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">名稱</th>
+                            <th scope="col">電話</th>
+                            <th scope="col">地址</th>
+                            <th scope="col">類型</th>
+                        </tr>
+                    </thead>
+                    <tbody id="insertList">
+                        <!-- {% for join in join_list %}
+                        <tr>
+                            <td> {{ join.name }} </td>
+                            <td> {{ join.phone }} </td>
+                            <td> {{ join.address }} </td>
+                            <td> {{ join.type }} </td>
+                        </tr>
+                        {% endfor %} -->
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </main>
+
+    <footer class="bgcolor-green">  
+        <div class="container d-flex justify-content-center">
+            <small>@此內容為課程學習</small>
+        </div>
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js"></script>
+
+    <script>
+        $("#county").change(function(){
+            var getvalue = $(this).val();
+
+            $.ajax({
+                type: 'post',
+                url: "{{'town_ajax'}}",
+                data: {'get_county_id':getvalue},
+                success: function (result){
+                    var result = JSON.parse(result);
+                    var insertHtml="";
+            
+                    if (getvalue != ""){
+                        insertHtml="<option>請選擇</option>"
+                    }
+                    // console.log(result);
+                    // console.log(typeof(result));
+                    // console.log(result[0].pk)
+                    // console.log(result[0].fields['town'])
+                    // console.log(result.length)
+                    $("#town").append('<option>請選擇</option>')
+                    for(var i=0; i<result.length; i++){
+                        insertHtml += ('<option value='+ result[i].pk + '>'+ result[i].fields['town']+'</option>');
+                    }
+                    $("#town").html(insertHtml);
+                }
+            })
+        });
+    </script>
+    <!-- <script src="{% static 'js/dropdown.js' %}"></script> -->
+    
+    <script>
+        $("#search").click(function(){
+            var get_id = $("#town").val();
+            var insertHtml = "";
+            $.ajax({
+                type: 'post',
+                url: "{{'search_ajax'}}",
+                data: {'get_id':get_id},
+                success: function (result){
+                    var result = JSON.parse(result);
+                    console.log(result);
+                    for(var i=0; i<result.length; i++){
+                        insertHtml += ("<tr><td>" 
+                            + result[i].fields['name'] + "</td><td>"
+                            + result[i].fields['phone'] + "</td><td>"
+                            + result[i].fields['address'] + "</td><td>"
+                            + result[i].fields['type'] + "</td></tr>");
+                    }
+                    $("#insertList").html(insertHtml);
+                }
+            })
+        })
+    </script>
+
+    <script>
+        const MODEL_NAME = "{% static 'model/model.json'%}";
+        const LABELS_NAME = "{% static 'skin_labels.txt'%}";
+
+        const IMAGE_SIZE = 256;
+
+        async function init(){
+            model=await tf.loadGraphModel(MODEL_NAME);
+            labels = load_labels(LABELS_NAME).split('\r\n');
+            console.log('load model...');
+            console.log('labels ' + LABELS_NAME + ' loaded.');
+            console.log(labels)
+        }
+
+        function load_labels(filePath) {
+            var result = null;
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.open("GET", filePath, false);
+            xmlhttp.send();
+            if (xmlhttp.status==200) {
+                result = xmlhttp.responseText;
+            }
+            return result;
+        }
+
+        function submit(){
+            const selectFile = document.getElementById('input').files[0];
+            console.log(selectFile);
+            let reader = new FileReader();
+            reader.onload = e =>{
+                let img = document.createElement('img');
+                img.src = e.target.result;
+                img.width=144;
+                img.height=144;
+                img.onload=()=>{
+                    const showImage=document.getElementById('showImage');
+                    showImage.innerHTML='';
+                    showImage.appendChild(img);
+                    preadict(img);
+                }
+            }
+            reader.readAsDataURL(selectFile);
+        }
+
+        function findMaxIndex(result){
+            const arr = Array.from(result);
+            let maxIndex = 0;
+            let maxValue = 0;
+            for(let i=0;i<arr.length;i++){
+                if(arr[i]>maxValue){
+                    maxIndex=i;
+                    maxValue=arr[i]
+                }
+            }
+            return {predNum: maxIndex, prob: maxValue};
+        }
+
+        function preadict(imgElement){
+            const logits = tf.tidy(() => {
+                const img = tf.cast(tf.browser.fromPixels(imgElement).resizeBilinear([IMAGE_SIZE, IMAGE_SIZE]), 'float32');
+                // const offset = tf.scalar(255.0);
+                // const normalized = img.div(img);
+                const batched = img.reshape([1, IMAGE_SIZE, IMAGE_SIZE, 3]);
+                const pred =  model.predict(batched);
+                const result = pred.dataSync();
+                console.log(result);
+                console.log(result[0])
+                
+                for(let i=0;i<yValues.length;i++){
+                    yValues.splice(i,1,result[i]);
+                }
+                
+                var ctx = document.getElementById("Chart").getContext("2d");        
+                myChart.update()
+
+
+
+                const {predNum, prob} =findMaxIndex(result);
+                document.getElementById('resultValue').innerHTML=labels[predNum];
+            });
+
+        }
+
+
+        var xValues = load_labels(LABELS_NAME).split('\r\n');
+        let yValues = [0, 0, 0, 0, 0, 0, 0, 0];
+        var barColors = ["red", "green","blue","orange","brown","yellow", "purple", "gray"];
+
+        let myChart = new Chart("Chart", {
+        type: "bar",
+        data: {
+            labels: xValues,
+            datasets: [{
+            backgroundColor: barColors,
+            data: yValues
+            }]
+        },
+        options: {
+            legend: {
+                display: false
+            },
+            title: {
+            display: true,
+            text: "病灶預測"
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        min: 0
+                    }
+                }]
+            }
+        }
+        });
+    </script>
+    <!-- <script src="{% static 'js/index.js' %}"></script> -->
+</body>
+</html>
